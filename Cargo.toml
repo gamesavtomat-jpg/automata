@@ -1,5 +1,5 @@
 [workspace]
-members = [".", "dashboard"]
+members = [".", "dashboard", "sips"]
 resolver = "2"
 
 [package]
@@ -29,7 +29,7 @@ async-trait = "0.1.89"
 dotenvy = "0.15"
 serde_yaml = "0.9.34"
 tokio-tungstenite = "0.29.0"
-sips = { path = "/home/jaro/dev/sips", features = ["pump", "solana_sdk"] }
 solana-client = "3.1.14"
 solana-keypair = "3.1.2"
 solana-transaction = "4.1.1"
+sips = { path = "./sips", features = ["solana_sdk", "pump"]}

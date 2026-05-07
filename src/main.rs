@@ -82,15 +82,7 @@ async fn main() {
     let keypair = Arc::new(Keypair::from_base58_string(&private_key));
     let pubkey_string = keypair.pubkey().to_string();
 
-    let broker = Arc::new(
-        SolanaBroker::new(
-            std::env::var("SOLANA_HTTP").unwrap(),
-            keypair.pubkey(),
-            keypair,
-        )
-        .await
-        .unwrap(),
-    );
+    let broker = Arc::new(MockBroker::new(100f64));
 
     let (mut manager_actor, manager_tx, mut event_rx, paused_state, balance_state) =
         PositionManagerActor::new(
@@ -444,8 +436,6 @@ async fn main() {
                 });
             }
             Action::Trade(trade_action) => {
-                broker.process_trade_event(&trade_action, bucket.pool());
-
                 let trade_action = Arc::new(trade_action);
                 let bucket = Arc::new(bucket);
 
